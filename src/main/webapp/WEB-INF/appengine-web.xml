@@ -3,6 +3,7 @@
 <application>bears-allowance</application>
     <version>1</version>
     <threadsafe>true</threadsafe>
+    <sessions-enabled>true</sessions-enabled>
 
     <system-properties>
       <property
