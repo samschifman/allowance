@@ -85,7 +85,7 @@ public class TextSearchServlet extends HttpServlet {
       outcome = searchOutcome;
     }
     req.setAttribute("outcome", outcome);
-    req.getRequestDispatcher("display.jsp").forward(req, resp);
+    req.getRequestDispatcher("search/display.jsp").forward(req, resp);
   }
 
   private User setupUser(HttpServletRequest req) {

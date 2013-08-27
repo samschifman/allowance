@@ -12,5 +12,14 @@
         <servlet-name>textsearch</servlet-name>
         <url-pattern>/search</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>allowance</servlet-name>
+        <servlet-class>me.samschifman.allowance.service.AllowanceServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>allowance</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 </web-app>
 
