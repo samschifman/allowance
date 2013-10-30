@@ -1,5 +1,6 @@
 package me.samschifman.allowance.domain;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.util.Date;
@@ -75,7 +76,7 @@ public class Transaction implements Comparable<Transaction> {
       String row = "<tr>";
       
       row += "<td>" + getType() + "</td>";
-      row += "<td>" + getDate() + "</td>";
+      row += "<td>" + DateFormatUtils.format(getDate(), "MM/dd/yy h:mm a") + "</td>";
       row += "<td>" + getAmount() + "</td>";
       row += "<td>" + getRunningTotal() + "</td>";
       row += "<td>" + getComments() + "</td>";
