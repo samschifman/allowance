@@ -31,7 +31,7 @@ public class AllowanceServlet extends HttpServlet {
     SET_EMAIL, DEBIT, CREDIT, SAVE_BEAR, VIEW_SELF, VIEW_BEAR, VIEW_BEARS, CREATE_BEAR, EDIT_BEAR;
   }
   
-  private UserService userService = UserServiceFactory.getUserService();
+//  private UserService userService = UserServiceFactory.getUserService();
   private AllowanceService allowanceService;
   
   @Override
@@ -194,15 +194,16 @@ public class AllowanceServlet extends HttpServlet {
   
   private String loadEmail(HttpServletRequest req) {
     String email = null;
-    HttpSession session = req.getSession(true);
-    email = (String) session.getValue(EMAIL_ATTR);
-    
-    if (email == null) {
+//    HttpSession session = req.getSession(true);
+//    email = (String) session.getValue(EMAIL_ATTR);
+//    
+//    if (email == null) {
+      UserService userService = UserServiceFactory.getUserService();
       User user = userService.getCurrentUser();
       email = (user != null) ? user.getEmail() : null;
-    }
-    
-    session.setAttribute(EMAIL_ATTR, email);
+//    }
+//    
+//    session.setAttribute(EMAIL_ATTR, email);
     return email;
   }
   

@@ -2,6 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Collections" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 <%@ page import="me.samschifman.allowance.domain.Bear" %>
 <%@ page import="me.samschifman.allowance.domain.Transaction" %>
 <%@ page import="me.samschifman.allowance.domain.Role" %>
@@ -14,11 +16,17 @@
   </head>
   <body>
     <h1>Welcome <%=bear.getName()%></h1>
-    <% if (bear.getRole() != Role.CUB) { %>
     <div>
-      <span>My Allowance</span> &nbsp;|&nbsp; <span><a href="/?action=VIEW_BEARS">The Family</a></span> &nbsp;|&nbsp; <span><a href="/?action=EDIT_BEAR&cub_id=<%=bear.getId()%>">My Profile</a></span>
-    </div> 
+    <% if (bear.getRole() != Role.CUB) { %>
+      <span>My Allowance</span> &nbsp;|&nbsp; <span><a href="/?action=VIEW_BEARS">The Family</a></span> &nbsp;|&nbsp; <span><a href="/?action=EDIT_BEAR&cub_id=<%=bear.getId()%>">My Profile</a></span> &nbsp;|&nbsp; 
     <% } %>
+    <%
+        UserService userService = UserServiceFactory.getUserService();
+        String logoutURL = userService.createLogoutURL("/");
+    %>
+    <span><a href="<%=logoutURL%>">Logout</a></span>
+      
+    </div>
     
     <hr/>
     

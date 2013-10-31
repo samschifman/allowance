@@ -1,5 +1,6 @@
 package me.samschifman.allowance.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
 import org.joda.time.Weeks;
@@ -44,7 +45,7 @@ public class AllowanceService {
     public Bear getBear(String email) {
         Bear bear = getDataManager().getBear(email);
         if (bear == null) {
-            if (getProperties().getProperty("admins", "").contains(email)) {
+            if (getProperties().getProperty("admins", "").toUpperCase().contains(email.toUpperCase())) {
                 bear = new Bear();
                 bear.setEmail(email);
                 bear.setRole(Role.ADMIN);
@@ -52,7 +53,9 @@ public class AllowanceService {
             }
         }
         
-        reconcileBear(bear);
+        if (bear != null) {
+          reconcileBear(bear);
+        }
 
         return bear;
     }
@@ -82,6 +85,17 @@ public class AllowanceService {
     
     public void credit(Bear bear, double amount, String comments) {
       creditBear(bear, TransactionType.OTHER_CREDIT, amount, comments);
+    }
+    
+    public boolean isTest() {
+      boolean result = false;
+      
+      String test = getProperties().getProperty("test");
+      if (!StringUtils.isEmpty(test)) {
+        result = Boolean.valueOf(test);
+      }
+      
+      return result;
     }
 
     protected void reconcileBear(Bear bear) {
