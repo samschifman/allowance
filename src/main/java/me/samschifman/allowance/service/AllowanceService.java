@@ -74,6 +74,15 @@ public class AllowanceService {
     public void saveBear(Bear bear) {
        getDataManager().saveBear(bear);
     }
+    
+    public void debit(Bear bear, double amount, String comments) {
+      if (amount > 0) { amount = 0 - amount; }
+      creditBear(bear, TransactionType.DEBIT, amount, comments);
+    }
+    
+    public void credit(Bear bear, double amount, String comments) {
+      creditBear(bear, TransactionType.OTHER_CREDIT, amount, comments);
+    }
 
     protected void reconcileBear(Bear bear) {
         Transaction lastAllowance = findLastAllowance(bear);

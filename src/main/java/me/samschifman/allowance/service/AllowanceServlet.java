@@ -46,8 +46,9 @@ public class AllowanceServlet extends HttpServlet {
       Bear bear = getAllowanceService().getBear(email);
       if (bear == null) {
         view = "requestEmail.jsp";
+      } else {
+        view = handleAction(req, bear, action);
       }
-      view = handleAction(req, bear, action);
     }
      
     req.getRequestDispatcher(view).forward(req, resp);
@@ -70,6 +71,18 @@ public class AllowanceServlet extends HttpServlet {
       case CREATE_BEAR :
         addBear(req, bear);
         view = "editBear.jsp";
+        break;
+      case DEBIT :
+        debit(req);
+        addBear(req, bear);
+        addCub(req);
+        view = "transBear.jsp";
+        break;
+      case CREDIT :
+        credit(req);
+        addBear(req, bear);
+        addCub(req);
+        view = "transBear.jsp";
         break;
       case VIEW_BEAR :
         addBear(req, bear);
@@ -110,6 +123,33 @@ public class AllowanceServlet extends HttpServlet {
   private void addCub(Long id, HttpServletRequest req) {
       Bear cub = getAllowanceService().getCub(id);
       req.setAttribute(CUB_ATTR, cub);
+  }
+  
+  private void debit(HttpServletRequest req) {
+      String idAttr = req.getParameter(CUB_ID_ATTR);
+      Long id = Long.valueOf(idAttr);
+      Bear cub = getAllowanceService().getCub(id);
+      
+      String amountStr = req.getParameter("amount");
+      double amount = Double.valueOf(amountStr);
+
+      String comments = req.getParameter("comments");    
+      
+      getAllowanceService().debit(cub, amount, comments);
+  }
+  
+  private void credit(HttpServletRequest req) {
+      String idAttr = req.getParameter(CUB_ID_ATTR);
+      Long id = Long.valueOf(idAttr);
+      Bear cub = getAllowanceService().getCub(id);
+      
+      String amountStr = req.getParameter("amount");
+      double amount = Double.valueOf(amountStr);
+
+      String comments = req.getParameter("comments");    
+      
+      getAllowanceService().credit(cub, amount, comments);
+    
   }
   
   private Long saveCub(HttpServletRequest req) {

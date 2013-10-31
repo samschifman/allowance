@@ -1,4 +1,7 @@
 <%@page contentType="text/html" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Collections" %>
 <%@ page import="me.samschifman.allowance.domain.Bear" %>
 <%@ page import="me.samschifman.allowance.domain.Transaction" %>
 <%@ page import="me.samschifman.allowance.domain.Role" %>
@@ -24,10 +27,14 @@
     <br/>
     <p>Your Transaction History:</p>
     
-    <table b>
+    <table border="1">
       <tr><th>Type</th><th>When</th><th>How Much</th><th>Running Ballance</th><th>Comments</th></tr>
-    <% for (Transaction trans : bear.getTransactions()) { %>
-      <tr><td><%=trans.getType()%></td><td><%=trans.getDate()%></td><td><%=trans.getAmount()%></td><td><%=trans.getRunningTotal()%></td><td><%=trans.getComments()%></td></tr>
+    <%
+        List<Transaction> transList = new ArrayList<Transaction>(bear.getTransactions());
+        Collections.sort(transList);
+    %>
+    <% for (Transaction trans : transList) { %>
+      <%=trans.toTableRow()%>
     <% } %>
     </table>
     

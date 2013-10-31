@@ -68,7 +68,7 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     public int compareTo(Transaction trans) {
-      int i = (trans == null) ? 1 : this.getDate().compareTo(trans.getDate()); 
+      int i = (trans == null) ? 1 : 0 - this.getDate().compareTo(trans.getDate()); 
       return i;
     }
 

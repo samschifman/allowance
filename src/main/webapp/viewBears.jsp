@@ -24,7 +24,7 @@
     <table>
       <tr><th>Name</th><th>Balance</th><th>Actions</th></tr>
     <% for (Bear cub : bears) { %>
-      <tr><td><%=cub.getName()%></td><td>$<%=cub.getBallance()%></td><td><a href="/?action=EDIT_BEAR&cub_id=<%=cub.getId()%>">Profile</a></td></tr>
+      <tr><td><%=cub.getName()%></td><td>$<%=cub.getBallance()%></td><td><a href="/?action=VIEW_BEAR&cub_id=<%=cub.getId()%>">Debit/Credit</a> <a href="/?action=EDIT_BEAR&cub_id=<%=cub.getId()%>">Profile</a></td></tr>
     <% } %>
     </table>
     <a href="/?action=CREATE_BEAR">+ Add Cub</a>

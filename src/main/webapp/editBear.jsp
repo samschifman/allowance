@@ -21,7 +21,7 @@
     <hr/>
     
     <div>
-        <form name="search" action="/" method="get">
+        <form name="edit" action="/" method="get">
           <input type="hidden" name="action" value="SAVE_BEAR" />
           
           <% if (cub != null) { %>
